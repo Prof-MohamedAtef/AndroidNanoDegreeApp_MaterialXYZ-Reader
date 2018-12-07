@@ -1,4 +1,4 @@
-package com.example.xyzreader.remote;
+package nanodegree.ed.mo.prof.makeyourappmaterial.remote;
 
 import android.util.Log;
 

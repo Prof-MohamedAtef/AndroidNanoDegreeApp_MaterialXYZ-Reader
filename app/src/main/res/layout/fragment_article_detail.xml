@@ -1,10 +1,10 @@
-<com.example.xyzreader.ui.DrawInsetsFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<nanodegree.ed.mo.prof.makeyourappmaterial.ui.DrawInsetsFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/draw_insets_frame_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.xyzreader.ui.ObservableScrollView
+    <nanodegree.ed.mo.prof.makeyourappmaterial.ui.ObservableScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -23,7 +23,7 @@
                     android:id="@+id/photo"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                     />
+                    />
 
                 <View
                     android:layout_width="match_parent"
@@ -32,7 +32,7 @@
 
             </FrameLayout>
 
-            <com.example.xyzreader.ui.MaxWidthLinearLayout
+            <nanodegree.ed.mo.prof.makeyourappmaterial.ui.MaxWidthLinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                     android:id="@+id/meta_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#333"
+                    android:background="@color/theme_accent2"
                     android:layout_gravity="bottom"
                     android:orientation="vertical"
                     android:paddingLeft="@dimen/detail_inner_horiz_margin"
@@ -88,9 +88,9 @@
                     android:textSize="@dimen/detail_body_text_size"
                     android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier" />
 
-            </com.example.xyzreader.ui.MaxWidthLinearLayout>
+            </nanodegree.ed.mo.prof.makeyourappmaterial.ui.MaxWidthLinearLayout>
         </FrameLayout>
-    </com.example.xyzreader.ui.ObservableScrollView>
+    </nanodegree.ed.mo.prof.makeyourappmaterial.ui.ObservableScrollView>
 
     <ImageButton android:id="@+id/share_fab"
         android:stateListAnimator="@anim/fab_state_list_anim"
@@ -104,4 +104,4 @@
         android:elevation="@dimen/fab_elevation"
         android:contentDescription="@string/action_share" />
 
-</com.example.xyzreader.ui.DrawInsetsFrameLayout>
+</nanodegree.ed.mo.prof.makeyourappmaterial.ui.DrawInsetsFrameLayout>

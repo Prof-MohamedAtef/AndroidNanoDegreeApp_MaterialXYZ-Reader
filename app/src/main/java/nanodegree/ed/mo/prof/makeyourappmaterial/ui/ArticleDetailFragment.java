@@ -1,4 +1,4 @@
-package com.example.xyzreader.ui;
+package nanodegree.ed.mo.prof.makeyourappmaterial.ui;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
@@ -31,8 +31,9 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.example.xyzreader.R;
-import com.example.xyzreader.data.ArticleLoader;
+
+import nanodegree.ed.mo.prof.makeyourappmaterial.R;
+import nanodegree.ed.mo.prof.makeyourappmaterial.data.ArticleLoader;
 
 /**
  * A fragment representing a single Article detail screen. This fragment is

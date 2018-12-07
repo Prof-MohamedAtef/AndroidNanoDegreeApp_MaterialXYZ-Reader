@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.xyzreader.ui;
+package nanodegree.ed.mo.prof.makeyourappmaterial.ui;
 
 import android.content.Context;
 import android.os.Parcelable;

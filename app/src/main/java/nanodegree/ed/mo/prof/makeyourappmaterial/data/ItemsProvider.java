@@ -1,5 +1,5 @@
 
-package com.example.xyzreader.data;
+package nanodegree.ed.mo.prof.makeyourappmaterial.data;
 
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;

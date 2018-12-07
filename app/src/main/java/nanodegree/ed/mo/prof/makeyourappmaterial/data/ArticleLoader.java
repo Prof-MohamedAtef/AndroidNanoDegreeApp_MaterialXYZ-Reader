@@ -1,4 +1,4 @@
-package com.example.xyzreader.data;
+package nanodegree.ed.mo.prof.makeyourappmaterial.data;
 
 import android.content.Context;
 import android.content.CursorLoader;
