@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +39,8 @@ import nanodegree.ed.mo.prof.makeyourappmaterial.R;
 import nanodegree.ed.mo.prof.makeyourappmaterial.data.ArticleLoader;
 import nanodegree.ed.mo.prof.makeyourappmaterial.data.ItemsContract;
 import nanodegree.ed.mo.prof.makeyourappmaterial.data.UpdaterService;
+import nanodegree.ed.mo.prof.makeyourappmaterial.remote.Config;
+import nanodegree.ed.mo.prof.makeyourappmaterial.ui.Listeners.SnackBarLauncher;
 
 /**
  * An activity representing a list of Articles. This activity has different presentations for
@@ -44,7 +49,8 @@ import nanodegree.ed.mo.prof.makeyourappmaterial.data.UpdaterService;
  * activity presents a grid of items as cards.
  */
 public class ArticleListActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor>, SwipeRefreshLayout.OnRefreshListener {
+        LoaderManager.LoaderCallbacks<Cursor>,
+        SwipeRefreshLayout.OnRefreshListener, SnackBarLauncher{
 
     private static final String TAG = ArticleListActivity.class.toString();
     @BindView(R.id.toolbar)
@@ -53,20 +59,18 @@ public class ArticleListActivity extends AppCompatActivity implements
     SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.coordinator_layout)
+    CoordinatorLayout coordinatorLayout;
     static final String EXTRA_STARTING_ARTICLE_POSITION = "extra_starting_item_position";
     static final String EXTRA_CURRENT_ARTICLE_POSITION = "extra_current_item_position";
-
     private Bundle mTmpReenterState;
     public boolean mIsRefreshing=false;
     public static boolean mIsDetailsActivityStarted;
-
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
     // Use default locale format
     private SimpleDateFormat outputFormat = new SimpleDateFormat();
     // Most time functions can only handle 1902 - 2037
     private GregorianCalendar START_OF_EPOCH = new GregorianCalendar(2,1,1);
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +81,8 @@ public class ArticleListActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         getLoaderManager().initLoader(0, null, this);
+        Config.mContext=getApplicationContext();
+        Config.mCoordinatorLayout=coordinatorLayout;
         if (savedInstanceState == null) {
             refresh();
         }
@@ -87,7 +93,7 @@ public class ArticleListActivity extends AppCompatActivity implements
     }
 
     private void refresh() {
-        startService(new Intent(this, UpdaterService.class));
+        Config.mContext.startService(new Intent(Config.mContext, UpdaterService.class));
     }
 
     @Override
@@ -103,21 +109,36 @@ public class ArticleListActivity extends AppCompatActivity implements
         unregisterReceiver(mRefreshingReceiver);
     }
 
-
-
     private BroadcastReceiver mRefreshingReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (UpdaterService.BROADCAST_ACTION_STATE_CHANGE.equals(intent.getAction())) {
                 mIsRefreshing = intent.getBooleanExtra(UpdaterService.EXTRA_REFRESHING, false);
-                mSwipeRefreshLayout.setRefreshing(mIsRefreshing);
+//                mSwipeRefreshLayout.setRefreshing(mIsRefreshing);
             }else if (UpdaterService.BROADCAST_ACTION_NO_CONNECTIVITY.equals(intent.getAction())){
                 mSwipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(ArticleListActivity.this, getString(R.string.noconnection), Toast.LENGTH_LONG).show();
+//                Toast.makeText(ArticleListActivity.this, getString(R.string.noconnection), Toast.LENGTH_LONG).show();
             }
         }
     };
 
+    private void SnackBarInitializer() {
+        Snackbar snackbar = Snackbar
+                .make(Config.mCoordinatorLayout, Config.mContext.getResources().getString(R.string.noconnection), Snackbar.LENGTH_LONG)
+                .setAction(Config.mContext.getResources().getString(R.string.retry), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        refresh();
+                    }
+                });
+        // Changing message text color
+        snackbar.setActionTextColor(Color.RED);
+        // Changing action button text color
+        View sbView = snackbar.getView();
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setTextColor(Color.YELLOW);
+        snackbar.show();
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
@@ -150,6 +171,12 @@ public class ArticleListActivity extends AppCompatActivity implements
     public void onRefresh() {
         Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
         refresh();
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onNoInternetConnection() {
+        SnackBarInitializer();
     }
 
     private class Adapter extends RecyclerView.Adapter<ViewHolder> {

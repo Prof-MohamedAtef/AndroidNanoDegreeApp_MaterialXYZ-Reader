@@ -8,6 +8,7 @@
     <string name="action_share">Share</string>
 
     <string name="up">Up</string>
-    <string name="noconnection">No Internet Connection</string>
+    <string name="retry">Retry</string>
+    <string name="noconnection">No Internet Connection!</string>
 
 </resources>

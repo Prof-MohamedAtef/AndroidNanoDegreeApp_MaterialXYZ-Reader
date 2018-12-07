@@ -5,12 +5,16 @@ import android.content.ContentProviderOperation;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.OperationApplicationException;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.RemoteException;
+import android.support.design.widget.Snackbar;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 
 import org.json.JSONArray;
@@ -19,9 +23,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import nanodegree.ed.mo.prof.makeyourappmaterial.R;
 import nanodegree.ed.mo.prof.makeyourappmaterial.remote.RemoteEndpointUtil;
+import nanodegree.ed.mo.prof.makeyourappmaterial.ui.ArticleListActivity;
+import nanodegree.ed.mo.prof.makeyourappmaterial.ui.Listeners.SnackBarLauncher;
 
-public class UpdaterService extends IntentService {
+public class UpdaterService extends IntentService  {
     private static final String TAG = "UpdaterService";
 
     public static final String BROADCAST_ACTION_NO_CONNECTIVITY
@@ -44,6 +51,8 @@ public class UpdaterService extends IntentService {
         NetworkInfo ni = cm.getActiveNetworkInfo();
         if (ni == null || !ni.isConnected()) {
             Log.w(TAG, "Not online, not refreshing.");
+            ArticleListActivity articleListActivity=new ArticleListActivity();
+            articleListActivity.onNoInternetConnection();
             return;
         }
 
