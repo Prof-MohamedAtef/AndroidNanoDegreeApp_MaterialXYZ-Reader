@@ -24,6 +24,9 @@ import nanodegree.ed.mo.prof.makeyourappmaterial.remote.RemoteEndpointUtil;
 public class UpdaterService extends IntentService {
     private static final String TAG = "UpdaterService";
 
+    public static final String BROADCAST_ACTION_NO_CONNECTIVITY
+            = "nanodegree.ed.mo.prof.makeyourappmaterial.intent.action.NO_CONNECTIVITY";
+
     public static final String BROADCAST_ACTION_STATE_CHANGE
             = "nanodegree.ed.mo.prof.makeyourappmaterial.intent.action.STATE_CHANGE";
     public static final String EXTRA_REFRESHING
