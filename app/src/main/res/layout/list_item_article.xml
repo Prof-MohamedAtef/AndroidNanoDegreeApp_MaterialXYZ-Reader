@@ -1,5 +1,4 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="4dp"
@@ -19,7 +18,7 @@
         <nanodegree.ed.mo.prof.makeyourappmaterial.ui.DynamicHeightNetworkImageView
             android:id="@+id/thumbnail"
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="0dp"
             android:background="@color/photo_placeholder" />
 
         <TextView
@@ -37,15 +36,27 @@
 
         <TextView
             android:id="@+id/article_subtitle"
-            style="@style/TextAppearance.AppCompat.Body1"
+            style="@style/TextAppearance.AppCompat.Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingBottom="16dp"
-            android:textColor="#6000"
+            android:textColor="@color/light_gray"
             android:maxLines="2"
             android:ellipsize="end" />
-    </LinearLayout>
 
+        <TextView
+            android:id="@+id/article_author"
+            style="@style/TextAppearance.AppCompat.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp"
+            android:textColor="@color/light_gray"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+    </LinearLayout>
 </android.support.v7.widget.CardView>
