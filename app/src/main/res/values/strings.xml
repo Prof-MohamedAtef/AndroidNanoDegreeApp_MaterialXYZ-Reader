@@ -10,5 +10,8 @@
     <string name="up">Up</string>
     <string name="retry">Retry</string>
     <string name="noconnection">No Internet Connection!</string>
+    <string name="transition_photo">transition_photo</string>
 
+    <string name="loading_msg">Loading ...</string>
+    <string name="pls_wait">Please Wait</string>
 </resources>

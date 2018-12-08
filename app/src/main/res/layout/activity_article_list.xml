@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/theme_primary2"
-    android:theme="@style/AppTheme.AppBarOverlay">
+    android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="@dimen/appbar_elevation">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
